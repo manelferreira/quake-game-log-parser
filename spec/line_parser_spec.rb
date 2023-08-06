@@ -7,5 +7,13 @@ RSpec.describe 'LineParser' do
         expect(result).to be true
       end
     end
+
+    context 'when line is game end' do
+      it 'returns true' do
+        sut = LineParser.new
+        result = sut.is_game_end?('  20:37 ShutdownGame:')
+        expect(result).to be true
+      end
+    end
   end
 end
