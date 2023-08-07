@@ -45,6 +45,24 @@ class GameParser
 
     if @line_parser.kill?(line)
       current_game[game_id]["total_kills"] += 1
+
+      kill_data = @line_parser.kill_data(line)
+
+      if kill_data["killer"] == "<world>"
+        if current_game[game_id]["kills"][kill_data["killed"]].nil?
+          current_game[game_id]["kills"][kill_data["killed"]] = -1
+        else
+          current_game[game_id]["kills"][kill_data["killed"]] -= 1
+        end
+
+        return
+      end
+      
+      if current_game[game_id]["kills"][kill_data["killer"]].nil?
+        current_game[game_id]["kills"][kill_data["killer"]] = 1
+      else
+        current_game[game_id]["kills"][kill_data["killer"]] += 1
+      end
     end
 
     current_game
