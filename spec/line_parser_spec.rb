@@ -27,5 +27,19 @@ RSpec.describe 'LineParser' do
         expect(result).to be false
       end
     end
+
+    context 'when line is kill' do
+      it 'returns true' do
+        sut = LineParser.new
+        result = sut.kill?('  20:37 Kill:')
+        expect(result).to be true
+      end
+
+      it 'returns false' do
+        sut = LineParser.new
+        result = sut.kill?('----------')
+        expect(result).to be false
+      end
+    end
   end
 end

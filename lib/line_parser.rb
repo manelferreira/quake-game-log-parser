@@ -6,4 +6,8 @@ class LineParser
   def is_game_end?(line)
     line.match?(/ShutdownGame:/)
   end
+
+  def kill?(line)
+    line.match?(/Kill:/)
+  end
 end

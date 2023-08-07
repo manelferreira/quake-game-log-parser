@@ -1,22 +1,28 @@
 require 'line_parser'
 
 class GameParser
+  def initialize
+    @line_parser = LineParser.new
+  end
+
   def parse(log_lines)
     games = []
-    current_game = 0
+    current_game_number = 0
     reading_game = false
-
-    line_parser = LineParser.new
+    current_game = {}
     
     log_lines.each do |line|
       if reading_game
-        if (line_parser.is_game_end?(line))
+        if (@line_parser.is_game_end?(line))
           reading_game = false
+        else
+          parse_game(line, current_game, current_game_number)
         end
-      elsif line_parser.is_game_start?(line)
+      elsif @line_parser.is_game_start?(line)
         reading_game = true
-        current_game += 1 
-        games.push << create_game_data_structure(current_game)
+        current_game_number += 1 
+        current_game = create_game_data_structure(current_game_number)
+        games.push(current_game)
       end
     end
 
@@ -32,5 +38,13 @@ class GameParser
         "kills" => {}
       }
     }
+  end
+
+  def parse_game(line, current_game, current_game_number)
+    if @line_parser.kill?(line)
+      current_game["game_#{current_game_number}"]["total_kills"] += 1
+    end
+
+    current_game
   end
 end
