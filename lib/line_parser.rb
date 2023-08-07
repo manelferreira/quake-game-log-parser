@@ -20,4 +20,8 @@ class LineParser
       "killed" => data_parts.last 
     }
   end
+
+  def new_player?(line)
+    line.match?(/ClientUserinfoChanged/)
+  end
 end

@@ -61,4 +61,26 @@ RSpec.describe 'LineParser' do
       expect(result == expected_result).to be true
     end
   end
+
+  describe 'new_player?' do
+    context 'when is new player line' do
+      it 'returns true' do
+        sut = LineParser.new
+
+        result = sut.new_player?('0:27 ClientUserinfoChanged: 2 n\Mocinha\t\0\model\sarge\hmodel\sarge\g_redteam\\g_blueteam\\c1\4\c2\5\hc\95\w\0\l\0\tt\0\tl\0')
+
+        expect(result).to be true
+      end
+    end
+
+    context 'when is not a new player line' do
+      it 'returns false' do
+        sut = LineParser.new
+
+        result = sut.new_player?('-------')
+
+        expect(result).to be false
+      end
+    end
+  end
 end
