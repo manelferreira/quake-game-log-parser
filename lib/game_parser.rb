@@ -1,5 +1,5 @@
-require 'line_parser'
-require 'game_record'
+require_relative 'line_parser'
+require_relative 'game_record'
 
 class GameParser
   def initialize
