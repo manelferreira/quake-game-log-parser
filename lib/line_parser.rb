@@ -24,4 +24,11 @@ class LineParser
   def new_player?(line)
     line.match?(/ClientUserinfoChanged/)
   end
+
+  def new_player_name(line)
+    line_match = line.scan(/n\\(.*)\\t\\/)
+    data_parts = line_match.first
+
+    data_parts.first
+  end
 end

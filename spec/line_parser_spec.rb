@@ -83,4 +83,14 @@ RSpec.describe 'LineParser' do
       end
     end
   end
+
+  describe 'new_player_data' do
+    it 'returns data' do
+      sut = LineParser.new
+
+      result = sut.new_player_name('0:27 ClientUserinfoChanged: 2 n\Liu Kang\t\0\model\sarge\hmodel\sarge\g_redteam\\g_blueteam\\c1\4\c2\5\hc\95\w\0\l\0\tt\0\tl\0')
+
+      expect(result).to eq 'Liu Kang'
+    end
+  end
 end
