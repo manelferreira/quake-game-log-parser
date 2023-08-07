@@ -37,20 +37,27 @@ class GameParser
 
   def parse_game(line, current_game)
     if @line_parser.kill?(line)
-      kill_data = @line_parser.kill_data(line)
-
-      if kill_data["killer"] == "<world>"
-        current_game.decrease_kill_score(kill_data["killed"])
-        return
-      end
-      
-      current_game.increase_kill_score(kill_data["killer"])
-      
+      handle_kill(line, current_game)
     elsif @line_parser.new_player?(line)
-      new_player_name = @line_parser.new_player_name(line)
-      current_game.add_player(new_player_name)
+      handle_new_player(line, current_game)
     end
 
     current_game
   end
+
+  def handle_kill(line, current_game)
+    kill_data = @line_parser.kill_data(line)
+
+    if kill_data["killer"] == "<world>"
+      current_game.decrease_kill_score(kill_data["killed"])
+      return
+    end
+    
+    current_game.increase_kill_score(kill_data["killer"])
+  end
+
+  def handle_new_player(line, current_game)
+    new_player_name = @line_parser.new_player_name(line)
+    current_game.add_player(new_player_name)
+  end 
 end
