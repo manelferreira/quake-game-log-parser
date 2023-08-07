@@ -10,4 +10,14 @@ class LineParser
   def kill?(line)
     line.match?(/Kill:/)
   end
+
+  def kill_data(line)
+    line_match = line.scan(/: .*: (.*) killed (.*) by/)
+    data_parts = line_match.first
+
+    {
+      "killer" => data_parts.first,
+      "killed" => data_parts.last 
+    }
+  end
 end

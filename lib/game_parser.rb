@@ -41,8 +41,10 @@ class GameParser
   end
 
   def parse_game(line, current_game, current_game_number)
+    game_id = "game_#{current_game_number}"
+
     if @line_parser.kill?(line)
-      current_game["game_#{current_game_number}"]["total_kills"] += 1
+      current_game[game_id]["total_kills"] += 1
     end
 
     current_game

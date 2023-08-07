@@ -42,4 +42,22 @@ RSpec.describe 'LineParser' do
       end
     end
   end
+
+  describe 'kill_data' do
+    it 'returns kill data' do
+      sut = LineParser.new
+      
+      result = sut.kill_data('1:41 Kill: 1022 2 19: <world> killed Dono da Bola by MOD_FALLING')
+      
+      expected_result = {
+        "killer" => "<world>",
+        "killed" => "Dono da Bola"
+      }
+
+      print result
+      print expected_result
+
+      expect(result == expected_result).to be true
+    end
+  end
 end
