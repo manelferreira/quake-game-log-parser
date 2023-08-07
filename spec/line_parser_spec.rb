@@ -13,7 +13,9 @@ RSpec.describe 'LineParser' do
         expect(result).to be false
       end
     end
-
+  end
+  
+  describe 'is_game_end?' do
     context 'when line is game end' do
       it 'returns true' do
         sut = LineParser.new
@@ -27,7 +29,9 @@ RSpec.describe 'LineParser' do
         expect(result).to be false
       end
     end
+  end
 
+  describe 'kill?' do
     context 'when line is kill' do
       it 'returns true' do
         sut = LineParser.new
@@ -53,9 +57,6 @@ RSpec.describe 'LineParser' do
         "killer" => "<world>",
         "killed" => "Dono da Bola"
       }
-
-      print result
-      print expected_result
 
       expect(result == expected_result).to be true
     end
