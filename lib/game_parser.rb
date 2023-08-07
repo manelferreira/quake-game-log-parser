@@ -1,4 +1,5 @@
 require 'line_parser'
+require 'game_record'
 
 class GameParser
   def initialize
@@ -16,7 +17,7 @@ class GameParser
         if (@line_parser.is_game_end?(line))
           reading_game = false
         else
-          parse_game(line, current_game, current_game_number)
+          parse_game(line, current_game)
         end
       elsif @line_parser.is_game_start?(line)
         reading_game = true
@@ -31,44 +32,23 @@ class GameParser
 
   private
   def create_game_data_structure(game_number)
-    {
-      "game_#{game_number}" => {
-        "total_kills" => 0,
-        "players" => [],
-        "kills" => {}
-      }
-    }
+    GameRecord.new(game_number)
   end
 
-  def parse_game(line, current_game, current_game_number)
-    game_id = "game_#{current_game_number}"
-
+  def parse_game(line, current_game)
     if @line_parser.kill?(line)
-      current_game[game_id]["total_kills"] += 1
-
       kill_data = @line_parser.kill_data(line)
 
       if kill_data["killer"] == "<world>"
-        if current_game[game_id]["kills"][kill_data["killed"]].nil?
-          current_game[game_id]["kills"][kill_data["killed"]] = -1
-        else
-          current_game[game_id]["kills"][kill_data["killed"]] -= 1
-        end
-
+        current_game.decrease_kill_score(kill_data["killed"])
         return
       end
       
-      if current_game[game_id]["kills"][kill_data["killer"]].nil?
-        current_game[game_id]["kills"][kill_data["killer"]] = 1
-      else
-        current_game[game_id]["kills"][kill_data["killer"]] += 1
-      end
+      current_game.increase_kill_score(kill_data["killer"])
+      
     elsif @line_parser.new_player?(line)
       new_player_name = @line_parser.new_player_name(line)
-
-      return if current_game[game_id]["players"].include?(new_player_name)
-
-      current_game[game_id]["players"].push(new_player_name)
+      current_game.add_player(new_player_name)
     end
 
     current_game

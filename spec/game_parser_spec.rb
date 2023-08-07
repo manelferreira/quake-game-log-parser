@@ -25,7 +25,7 @@ RSpec.describe 'GameParser' do
         }
       }
 
-      expect(result.first == expected_result).to be true
+      expect(result.first.to_hash == expected_result).to be true
   end
 
   it 'returns one empty game and another one with single player' do
@@ -64,8 +64,8 @@ RSpec.describe 'GameParser' do
       }
     }
 
-    expect(result.first == first_expected_game).to be true
-    expect(result.last == second_expected_game).to be true
+    expect(result.first.to_hash == first_expected_game).to be true
+    expect(result.last.to_hash == second_expected_game).to be true
   end
 
   it 'returns game with one player and one <world> kill' do 
@@ -97,7 +97,7 @@ RSpec.describe 'GameParser' do
         }
       }
 
-      expect(result.first == expected_result).to be true
+      expect(result.first.to_hash == expected_result).to be true
   end
 
   it 'returns game with two players non <world> kills' do 
@@ -130,6 +130,6 @@ RSpec.describe 'GameParser' do
         }
       }
 
-      expect(result.first == expected_result).to be true
+      expect(result.first.to_hash == expected_result).to be true
   end
 end
