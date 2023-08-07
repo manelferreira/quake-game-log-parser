@@ -63,6 +63,12 @@ class GameParser
       else
         current_game[game_id]["kills"][kill_data["killer"]] += 1
       end
+    elsif @line_parser.new_player?(line)
+      new_player_name = @line_parser.new_player_name(line)
+
+      return if current_game[game_id]["players"].include?(new_player_name)
+
+      current_game[game_id]["players"].push(new_player_name)
     end
 
     current_game
