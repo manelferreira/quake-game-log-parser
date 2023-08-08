@@ -50,13 +50,11 @@ class GameParser
 
     if kill_data["killer"] == "<world>"
       current_game.decrease_kill_score(kill_data["killed"])
-      return
     elsif kill_data["killer"] == kill_data["killed"]
       current_game.increase_total_kills
-      return
+    else
+      current_game.increase_kill_score(kill_data["killer"])
     end
-    
-    current_game.increase_kill_score(kill_data["killer"])
   end
 
   def handle_new_player(line, current_game)

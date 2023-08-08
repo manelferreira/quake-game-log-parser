@@ -16,7 +16,7 @@ class GameRecord
   end
 
   def increase_kill_score(player)
-    @total_kills += 1
+    increase_total_kills
 
     if @kills[player].nil?
       @kills[player] = 1
@@ -26,7 +26,7 @@ class GameRecord
   end
 
   def decrease_kill_score(player)
-    @total_kills += 1
+    increase_total_kills
 
     if @kills[player].nil?
       @kills[player] = -1
