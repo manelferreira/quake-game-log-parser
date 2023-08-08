@@ -14,7 +14,7 @@ ruby lib/parser.rb qgames.log
 ```
 
 ## Running tests
-1) Install required gems, running the following on terminal:
+1) Install required gems, running the following on terminal (you're going to need [Bundler](https://bundler.io/) installed):
 ```
 bundle install
 ```
