@@ -11,6 +11,10 @@ class GameRecord
     @players.push(player)
   end
 
+  def increase_total_kills
+    @total_kills += 1
+  end
+
   def increase_kill_score(player)
     @total_kills += 1
 

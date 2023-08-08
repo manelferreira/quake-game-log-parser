@@ -51,6 +51,9 @@ class GameParser
     if kill_data["killer"] == "<world>"
       current_game.decrease_kill_score(kill_data["killed"])
       return
+    elsif kill_data["killer"] == kill_data["killed"]
+      current_game.increase_total_kills
+      return
     end
     
     current_game.increase_kill_score(kill_data["killer"])
